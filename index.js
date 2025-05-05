@@ -93,6 +93,29 @@ app.post('/submit', async (req, res) => {
   }
 });
 
+app.get('/submitted-registers', async (req, res) => {
+  try {
+    const client = await auth.getClient();
+    const sheets = google.sheets({ version: 'v4', auth: client });
+
+    const readResponse = await sheets.spreadsheets.values.get({
+      spreadsheetId: '1DgEjp7MnPcOpAIqR-5g8xbu2JnLO7gLybOPuwASxKWQ',
+      range: 'result!C2:C', // C2:C to skip the header
+    });
+
+    const rows = readResponse.data.values || [];
+
+    // Flatten the rows and send as an array
+    const registerNumbers = rows.map(row => row[0]);
+
+    res.status(200).json({ registerNumbers });
+  } catch (error) {
+    console.error('Error fetching register numbers:', error);
+    res.status(500).json({ error: 'Failed to fetch submitted register numbers' });
+  }
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
