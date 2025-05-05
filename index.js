@@ -79,7 +79,7 @@ app.post('/submit', async (req, res) => {
 
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: '1DgEjp7MnPcOpAIqR-5g8xbu2JnLO7gLybOPuwASxKWQ',
-      range: department, // Make sure this tab exists
+      range: "result", // Make sure this tab exists
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [[new Date().toLocaleString(), name, register_number, score, department,year]],
