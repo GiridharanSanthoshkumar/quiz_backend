@@ -52,7 +52,7 @@ app.get('/quiz/:name', async (req, res) => {
     }
 
     const headers = rows[1];
-  
+      
     const questions = rows.slice(2).map((row) => ({
   question: row[headers.indexOf('question')],
   options: row[headers.indexOf('options')].split(',').map((opt) => opt.trim()),
