@@ -52,11 +52,13 @@ app.get('/quiz/:name', async (req, res) => {
     }
 
     const headers = rows[1];
+  
     const questions = rows.slice(2).map((row) => ({
-      question: row[headers.indexOf('question')],
-      options: row[headers.indexOf('options')].split(',').map((opt) => opt.trim()),
-      answer: row[headers.indexOf('answer')],
-    }));
+  question: row[headers.indexOf('question')],
+  options: row[headers.indexOf('options')].split(',').map((opt) => opt.trim()),
+  answer: row[headers.indexOf('answer')],
+  image: row[headers.indexOf('image')] || '',  // If cell is empty, default to ''
+}));
 
     res.json({ quizName: rows[0][0], questions });
   } catch (err) {
