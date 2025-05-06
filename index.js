@@ -63,7 +63,7 @@ app.get('/quiz/:name', async (req, res) => {
     res.json({ quizName: rows[0][0], questions });
   } catch (err) {
     console.error('Google Sheets error:', err);
-    res.status(500).json({ error: 'Failed to fetch quiz data' });
+    res.status(500).json({ error: 'Failed to fetch quiz data',msg:err });
   }
 });
 
